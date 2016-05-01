@@ -1,0 +1,15 @@
+{
+  "name": "antistatic",
+  "version": "0.0.1",
+  "description": "Not-so-static site server.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrwade/antistatic.git"
+  },
+  "author": "Kevin Wade <kevinrwade@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mrwade/antistatic/issues"
+  },
+  "homepage": "https://github.com/mrwade/antistatic#readme"
+}
