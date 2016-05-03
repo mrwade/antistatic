@@ -1,6 +1,6 @@
 {
   "name": "antistatic",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Not-so-static site server.",
   "scripts": {
     "start": "node server.js"
