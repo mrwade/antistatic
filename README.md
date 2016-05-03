@@ -16,7 +16,7 @@ Upload static site files to your S3 bucket using the hostname as root directorie
 - anotherexample.com
   - index.html
 
-The S3 path in `my-bucket/example.com/about-us.html` will translate to the URL `http://example.com/about-us.html`.
+The S3 path of `my-bucket/example.com/about-us.html` will translate to the URL `http://example.com/about-us.html`.
 
 ## Server Setup
 

@@ -2,6 +2,9 @@
   "name": "antistatic",
   "version": "0.1.0",
   "description": "Not-so-static site server.",
+  "engines" : {
+    "node" : "6.x"
+  },
   "scripts": {
     "start": "node server.js"
   },
