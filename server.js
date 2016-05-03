@@ -2,10 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const request = require('request');
 
-const app = express();
-app.use(morgan('combined'));
+const { BUCKET, NODE_ENV } = process.env;
 
-const { BUCKET } = process.env;
+const app = express();
+app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'));
+
 app.get('*', (req, res) => {
   const { hostname, path } = req;
   const bucketPath = `http://s3.amazonaws.com/${BUCKET}/${hostname}${path}`;
