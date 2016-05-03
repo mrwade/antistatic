@@ -1,7 +1,10 @@
 {
   "name": "antistatic",
-  "version": "0.0.1",
+  "version": "0.1",
   "description": "Not-so-static site server.",
+  "scripts": {
+    "start": "node server.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mrwade/antistatic.git"
@@ -11,5 +14,10 @@
   "bugs": {
     "url": "https://github.com/mrwade/antistatic/issues"
   },
-  "homepage": "https://github.com/mrwade/antistatic#readme"
+  "homepage": "https://github.com/mrwade/antistatic#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "request": "^2.72.0"
+  }
 }
