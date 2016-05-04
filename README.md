@@ -5,6 +5,8 @@ Not-so-static site server.
 ## Features
 
 - Multi-domain static site serving from a single S3 bucket
+- Serve index.html files automatically
+- Translates S3 403 Forbidden responses into 404
 
 ## Bucket Setup
 

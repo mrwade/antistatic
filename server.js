@@ -1,26 +1,30 @@
 const express = require('express');
 const morgan = require('morgan');
 const request = require('request');
+const cache = require('./cache');
+const {
+  resolve,
+  resolveCached,
+  resolveExactPath,
+  resolveIndexPath,
+  resolveNotFound
+} = require('./resolvers');
 
-const { BUCKET, NODE_ENV } = process.env;
-
+const { NODE_ENV } = process.env;
 const app = express();
+
 app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'));
 
-const getHeaders = (req, keys) => {
-  let headers = {};
-  keys.forEach(key => {
-    const val = req.get(key);
-    if (val) headers[key] = val;
-  });
-  return headers;
-};
-
 app.get('*', (req, res) => {
-  const { hostname, path } = req;
-  const bucketPath = `http://s3.amazonaws.com/${BUCKET}/${hostname}${path}`;
-  const headers = getHeaders(req, ['If-None-Match']);
-  request({ url: bucketPath, headers }).pipe(res);
+  resolve(req, [
+    resolveCached,
+    resolveExactPath,
+    resolveIndexPath,
+    resolveNotFound
+  ]).then(({ status, headers, body }) => {
+    res.status(status).set(headers).send(body);
+    if (NODE_ENV !== 'production') console.log('Cache: ', cache.dump());
+  });
 });
 
 const PORT = process.env.PORT || 5000;
