@@ -46,7 +46,11 @@ const resolveUrlPath = ({ cachePath, url, req }) => new Promise((resolve, reject
     if (statusCode != 403 && statusCode != 404) {
       const { etag } = response.headers;
       cache.set(cachePath, { status: statusCode, etag });
-      return resolve({ status: statusCode, headers: { etag }, body });
+      return resolve({
+        status: statusCode,
+        headers: { etag, 'content-type': response.headers['content-type'] },
+        body
+      });
     }
     resolve();
   });
