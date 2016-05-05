@@ -41,7 +41,7 @@ const resolveCached = req => new Promise((resolve, reject) => {
 
 const resolveUrlPath = ({ cachePath, url, req }) => new Promise((resolve, reject) => {
   const headers = getHeaders(req, ['If-None-Match']);
-  request({ url, headers }, (err, response, body) => {
+  request({ url, headers, encoding: null }, (err, response, body) => {
     const { statusCode } = response;
     if (statusCode != 403 && statusCode != 404) {
       const { etag } = response.headers;
