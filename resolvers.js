@@ -29,6 +29,19 @@ const resolve = (req, resolvers) => {
   return resolveNext(Promise.resolve(false), resolvers, [req]);
 };
 
+const resolveWwwRedirect = req => new Promise((resolve, reject) => {
+  const { hostname, path, protocol } = req;
+  if (hostname.match(/^www./)) {
+    return resolve({
+      status: 301,
+      headers: {
+        Location: `${protocol}://${hostname.substring(4, hostname.length)}${path}`
+      }
+    });
+  }
+  resolve();
+});
+
 const resolveCached = req => new Promise((resolve, reject) => {
   const path = getPath(req);
   const cached = cache.get(path);
@@ -77,6 +90,7 @@ const resolveNotFound = req => new Promise((resolve, reject) => {
 
 module.exports = {
   resolve,
+  resolveWwwRedirect,
   resolveCached,
   resolveExactPath,
   resolveIndexPath,

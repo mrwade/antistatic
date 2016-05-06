@@ -4,6 +4,7 @@ const request = require('request');
 const cache = require('./cache');
 const {
   resolve,
+  resolveWwwRedirect,
   resolveCached,
   resolveExactPath,
   resolveIndexPath,
@@ -17,6 +18,7 @@ app.use(morgan(NODE_ENV === 'production' ? 'combined' : 'dev'));
 
 app.get('*', (req, res) => {
   resolve(req, [
+    resolveWwwRedirect,
     resolveCached,
     resolveExactPath,
     resolveIndexPath,
