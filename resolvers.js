@@ -29,6 +29,14 @@ const resolve = (req, resolvers) => {
   return resolveNext(Promise.resolve(false), resolvers, [req]);
 };
 
+const resolveHealthCheck = req => new Promise((resolve, reject) => {
+  const { path } = req;
+  if (path === '/healthcheck') {
+    return resolve({ status: 200 });
+  }
+  resolve();
+});
+
 const resolveWwwRedirect = req => new Promise((resolve, reject) => {
   const { hostname, path, protocol } = req;
   if (hostname.match(/^www./)) {
@@ -90,6 +98,7 @@ const resolveNotFound = req => new Promise((resolve, reject) => {
 
 module.exports = {
   resolve,
+  resolveHealthCheck,
   resolveWwwRedirect,
   resolveCached,
   resolveExactPath,
